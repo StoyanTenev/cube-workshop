@@ -10,6 +10,7 @@
         "uuid": "^8.3.0"
     },
     "devDependencies": {
+        "mongoose": "^5.10.0",
         "nodemon": "^1.19.2"
     },
     "scripts": {
