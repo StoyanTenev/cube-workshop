@@ -1,25 +1,18 @@
-const {Cube} = require('../models/cubeModel');
+const Cube = require('../models/cubeModel');
 const databaseController = require('../controllers/databaseController')
 
-function createCube(cubeData) {
+async function createCube(cubeData) {
     const {
         name,
         description,
         imageUrl,
-        difficultyLevel
+        difficulty
     } = cubeData;
-
-    const cube = new Cube(name, description, imageUrl, difficultyLevel);
-
-    databaseController.addCube(cube);
+    const cube = new Cube({name, description, imageUrl, difficulty});
+    await databaseController.addCube(cube);
 }
 
-function test(){
-    const test = databaseController.getCubeById('5bd5eec6-ac00-4b99-85b4-ded737457110');
-    console.log(test)
-}
 
-module.exports={
+module.exports = {
     createCube,
-    test
 }

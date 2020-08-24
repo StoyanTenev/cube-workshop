@@ -1,34 +1,17 @@
-const path = require('path');
-const fs = require('fs');
-const databasePath = path.join(__dirname, '..', './config/database/database.json');
+const Cube = require('../models/cubeModel');
 
-
-async function addCube(cube) {
-
-    await getAllCubes((cubes) => {
-        cubes.push(cube);
-        fs.writeFile(databasePath, JSON.stringify(cubes), err => {
-            if (err) throw err;
-        })
-    });
+const addCube = async (Cube) => {
+    await Cube.save().catch(err => console.error(err));
 }
 
-async function getAllCubes(callback) {
-    const databaseData = await fs.readFile(databasePath, 'utf8', (err, dbData) => {
-        if (err) throw err;
-
-        callback(JSON.parse(dbData));
-    });
+const getAllCubes = async () => {
+    const cubes = await Cube.find().lean();
+    return cubes;
 }
 
-async function getCubeById(cubeId, callback) {
-    await getAllCubes((cubes) => {
-        for (const cube of cubes) {
-            if (cube.id === cubeId) {
-                callback(cube);
-            }
-        }
-    });
+const getCubeById = async (cubeId) => {
+    const cube = await Cube.findById(cubeId);
+    return cube;
 }
 
 

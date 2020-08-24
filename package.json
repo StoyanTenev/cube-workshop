@@ -14,6 +14,7 @@
         "nodemon": "^1.19.2"
     },
     "scripts": {
-        "start": "nodemon"
+        "start": "nodemon",
+        "debug": "nodemon --inspect routes.js"
     }
 }
