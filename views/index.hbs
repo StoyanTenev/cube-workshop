@@ -1,15 +1,15 @@
 {{> header}}
-<main>
-    <h1>Browser</h1>
-    {{>search}}
-    {{# each cubes}}
-        <div class="cube">
-            <img class="cube"
-                 src="{{imageUrl}}">
-            <p class="name">{{name}}</p>
-            <p><span>Difficulty level:</span>{{difficulty}}</p>
-            <a class="btn" href="/details:{{_id}}">Details</a>
-        </div>
-    {{/each}}
-</main>
+
+<h1>Browser</h1>
+{{>search}}
+{{# each cubes}}
+    <div class="cube">
+        <img class="cube"
+             src="{{imageUrl}}">
+        <p class="name">{{name}}</p>
+        <p><span>Difficulty level:</span>{{difficulty}}</p>
+        <a class="btn" href="/details/{{_id}}">Details</a>
+    </div>
+{{/each}}
+
 {{> footer}}

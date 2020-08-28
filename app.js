@@ -9,7 +9,8 @@ const app = express();
 
 mongoose.connect(databaseUrl, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     },
     (err) => {
         if (err) {
@@ -23,4 +24,4 @@ mongoose.connect(databaseUrl, {
 require('./config/express')(app);
 app.use('/', indexRouter);
 
-app.listen(port, args => console.log(`Listening on port ${port}! Now its up to you...`));
+app.listen(port, () => console.log(`Listening on port ${port}! Now its up to you...`));
