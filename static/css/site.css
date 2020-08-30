@@ -105,10 +105,18 @@ button, main a.btn {
     color: white;
 }
 
+.details a.btn{
+    width: 28%;
+}
+
 button:hover {
     background-color: #0B2133;
     color: white;
     cursor: pointer;
+}
+
+a.btn:hover{
+    text-decoration: underline;
 }
 
 a {
@@ -157,6 +165,7 @@ form label {
 
 input[type=text],
 input[type=number],
+input[type=password],
 select,
 textarea {
     width: 100%;
@@ -220,11 +229,9 @@ span.error {
     display: block;
 }
 
-img#notFound404{
+img#sadFaceImg{
     display: block;
     margin: 0 auto;
-    height: auto;
-    width: auto;
 }
 
 h2{
@@ -254,7 +261,6 @@ footer {
 
 /*Animations & Transitions
 */
-
 
 @-webkit-keyframes fadeOut {
     from {
