@@ -10,22 +10,19 @@ const getModelById = async (modelId, Model) => {
     return await Model.findById(modelId);
 };
 
-const attachModel = async (modelToAttachId, modelToAttach, attachModelId, attachModel) => {
+const attachModel = async (cubeId, Cube, accessoryId, Accessory) => {
 
-    const model = await modelToAttach.findById(modelToAttachId);
-    const accessories = model.accessories;
+    await Cube.findByIdAndUpdate(cubeId, {
+        $addToSet: {
+            accessories: [accessoryId]
+        }
+    });
 
-    if (!accessories.includes(attachModelId)) {
-        accessories.push(attachModelId);
-
-        await modelToAttach.findByIdAndUpdate(modelToAttachId, {
-            accessories: accessories
-        });
-
-        await attachModel.findByIdAndUpdate(attachModelId, {
-            cubes: [modelToAttachId]
-        })
-    }
+    await Accessory.findByIdAndUpdate(accessoryId, {
+        $addToSet: {
+            cubes: [cubeId]
+        }
+    })
 };
 
 
