@@ -1,6 +1,6 @@
 const Cube = require('../models/cubeModel');
-const Accessory = require('../models/accessoryModel')
-const databaseController = require('../controllers/databaseController')
+const Accessory = require('../models/accessoryModel');
+const databaseController = require('../controllers/databaseController');
 
 async function createCube(cubeData) {
     const {
