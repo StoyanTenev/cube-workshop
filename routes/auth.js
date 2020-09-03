@@ -23,6 +23,16 @@ router.get('/login', (req, res) => {
     });
 })
 
+router.post('/login', async (req, res) => {
+    const status = await userController.userAccess(req, res);
+
+    if (status) {
+        res.redirect('/');
+    }else {
+        res.redirect('/login');
+    }
+})
+
 router.get('/logout', (req, res) => {
     res.redirect('/')
 })
