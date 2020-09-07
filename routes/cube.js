@@ -15,7 +15,7 @@ router.get('/create', (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    await cubeController.createCube(req.body);
+    await cubeController.createCube(req,res);
     res.redirect('/');
 });
 
