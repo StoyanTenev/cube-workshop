@@ -1,15 +1,20 @@
 const Cube = require('../models/cubeModel');
 const Accessory = require('../models/accessoryModel');
 const databaseController = require('../controllers/databaseController');
+const jwt = require('jsonwebtoken');
 
-async function createCube(cubeData) {
+async function createCube(req,res) {
     const {
         name,
         description,
         imageUrl,
         difficulty
-    } = cubeData;
-    const cube = new Cube({name, description, imageUrl, difficulty});
+    } = req.body;
+
+    const token = req.cookies['aid'];
+
+    const creator= jwt.verify(token,process.env.privateKey);
+    const cube = new Cube({name, description, imageUrl, difficulty,creatorId: creator.userId});
     await databaseController.addModel(cube);
 }
 
