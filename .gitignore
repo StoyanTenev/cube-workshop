@@ -4,4 +4,4 @@
 /.idea/
 /.vscode/
 /.resources/
-/resources/proccess.env.txt
+/.env/ 
