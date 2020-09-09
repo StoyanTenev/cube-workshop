@@ -5,14 +5,16 @@ const accessoryController = require('../controllers/accessoryController');
 const cubeController = require('../controllers/cubeController')
 const Cube = require('../models/cubeModel');
 const Accessory = require('../models/accessoryModel');
+const {checkAuthentication} = require('../controllers/userController');
 
 
 /**
  * Create Accessory
  */
-router.get('/create/accessory', (req, res) => {
+router.get('/create/accessory', checkAuthentication, (req, res) => {
     res.render('createAccessory', {
-        title: 'Create Accessory | Cube Workshop'
+        title: 'Create Accessory | Cube Workshop',
+        isAuth: res.isAuth
     });
 });
 
@@ -25,7 +27,7 @@ router.post('/create/accessory', async (req, res) => {
  * Attach Accessory
  */
 
-router.get('/attach/accessory/:id', async (req, res) => {
+router.get('/attach/accessory/:id', checkAuthentication, async (req, res) => {
     const cube = await databaseController.getModelById(req.params.id, Cube);
     const accessories = await databaseController.getAllModels(Accessory);
     const hasAllAccessory = await cubeController.hasAllAccessory(cube._id, cube);
@@ -34,7 +36,8 @@ router.get('/attach/accessory/:id', async (req, res) => {
         title: 'Attach Accessory | Cube Workshop',
         cube: cube,
         accessories: accessories,
-        hasAllAccessory: hasAllAccessory
+        hasAllAccessory: hasAllAccessory,
+        isAuth: res.isAuth
     });
 });
 
