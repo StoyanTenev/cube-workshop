@@ -25,11 +25,33 @@ const attachModel = async (cubeId, Cube, accessoryId, Accessory) => {
     })
 };
 
+const editCube = async (cubeData, cubeId, Model) => {
+    const {
+        name,
+        description,
+        imageUrl,
+        difficulty
+    } = cubeData
+
+    await Model.findOneAndUpdate({_id: cubeId}, {
+        name: name,
+        description: description,
+        imageUrl: imageUrl,
+        difficulty: difficulty
+    });
+}
+
+const deleteCube = async (cubeId, Model) => {
+    await Model.deleteOne({_id: cubeId});
+}
+
 
 module.exports = {
     addModel,
     getModelById,
     getAllModels,
     attachModel,
+    editCube,
+    deleteCube
 };
 

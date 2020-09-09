@@ -33,17 +33,27 @@ router.get('/edit/:id', checkAuthentication, async (req, res) => {
     });
 });
 
+router.post('/edit/:id', checkAuthentication, async (req, res) => {
+    await cubeController.editCube(req.body, req.params.id, Cube);
+    res.redirect('/');
+})
+
 /**
  * Delete cube
  */
-router.get('/delete/:id', checkAuthentication, (req, res) => {
+router.get('/delete/:id', checkAuthentication, async (req, res) => {
+    const cube = await databaseController.getModelById(req.params.id, Cube);
     res.render('deleteCubePage', {
         title: 'Delete Cube | Cube Workshop',
+        cube: cube,
         isAuth: res.isAuth
     });
 });
 
-
+router.post('/delete/:id', checkAuthentication, async (req, res) => {
+    await cubeController.deleteCube(req.params.id);
+    res.redirect('/');
+})
 /**
  * Details cube by id
  */

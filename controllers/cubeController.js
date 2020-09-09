@@ -3,7 +3,7 @@ const Accessory = require('../models/accessoryModel');
 const databaseController = require('../controllers/databaseController');
 const jwt = require('jsonwebtoken');
 
-async function createCube(req,res) {
+async function createCube(req, res) {
     const {
         name,
         description,
@@ -13,8 +13,8 @@ async function createCube(req,res) {
 
     const token = req.cookies['aid'];
 
-    const creator= jwt.verify(token,process.env.PRIVATE_KEY);
-    const cube = new Cube({name, description, imageUrl, difficulty,creatorId: creator.userId});
+    const creator = jwt.verify(token, process.env.PRIVATE_KEY);
+    const cube = new Cube({name, description, imageUrl, difficulty, creatorId: creator.userId});
     await databaseController.addModel(cube);
 }
 
@@ -30,8 +30,18 @@ async function hasAllAccessory(cubeId, cube) {
     return true;
 }
 
+async function editCube(cubeData, cubeId, Model) {
+    await databaseController.editCube(cubeData, cubeId, Model);
+}
+
+async function deleteCube(cubeId) {
+    await databaseController.deleteCube(cubeId, Cube);
+}
+
 
 module.exports = {
     createCube,
-    hasAllAccessory
+    hasAllAccessory,
+    editCube,
+    deleteCube
 }
