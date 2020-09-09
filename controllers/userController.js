@@ -1,10 +1,9 @@
-const databaseController = require('../controllers/databaseController');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const generateToken = data => {
-    return jwt.sign(data, process.env.privateKey)
+    return jwt.sign(data, process.env.PRIVATE_KEY)
 }
 
 const createUser = async (req, res) => {
@@ -63,7 +62,25 @@ const userAccess = async (req, res) => {
     }
 }
 
+const checkAuthentication = (req, res, next) => {
+    const token = req.cookies['aid'];
+
+    if (!token) {
+        res.isAuth = false;
+        next();
+    } else {
+        try {
+            const decodedObj = jwt.verify(token, process.env.PRIVATE_KEY);
+            res.isAuth = true;
+            next();
+        } catch (e) {
+            return res.redirect('/');
+        }
+    }
+}
+
 module.exports = {
     createUser,
-    userAccess
+    userAccess,
+    checkAuthentication
 };

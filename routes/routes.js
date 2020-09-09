@@ -2,15 +2,17 @@ const {Router} = require('express');
 const router = Router();
 const databaseController = require('../controllers/databaseController');
 const Cube = require('../models/cubeModel');
+const {checkAuthentication} = require('../controllers/userController');
 
 /**
  * Home
  */
-router.get('/', async (req, res) => {
+router.get('/', checkAuthentication, async (req, res) => {
     const cubes = await databaseController.getAllModels(Cube);
     res.render('index', {
         title: 'Cube Workshop',
-        cubes: cubes
+        cubes: cubes,
+        isAuth: res.isAuth
     });
 });
 

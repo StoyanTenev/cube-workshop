@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const router = Router();
+const {checkAuthentication} = require('../controllers/userController');
 const databaseController = require('../controllers/databaseController');
 const cubeController = require('../controllers/cubeController');
 const accessoryController = require('../controllers/accessoryController');
@@ -8,34 +9,37 @@ const Cube = require('../models/cubeModel');
 /**
  * Create Cube
  */
-router.get('/create', (req, res) => {
+router.get('/create', checkAuthentication, (req, res) => {
     res.render('create', {
-        title: 'Create Cube | Cube Workshop'
+        title: 'Create Cube | Cube Workshop',
+        isAuth: res.isAuth
     });
 });
 
 router.post('/create', async (req, res) => {
-    await cubeController.createCube(req,res);
+    await cubeController.createCube(req, res);
     res.redirect('/');
 });
 
 /**
  * Edit cube
  */
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', checkAuthentication, async (req, res) => {
     const cube = await databaseController.getModelById(req.params.id, Cube);
     res.render('editCubePage', {
         title: 'Edit Cube | Cube Workshop',
-        cube: cube
+        cube: cube,
+        isAuth: res.isAuth
     });
 });
 
 /**
  * Delete cube
  */
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', checkAuthentication, (req, res) => {
     res.render('deleteCubePage', {
-        title: 'Delete Cube | Cube Workshop'
+        title: 'Delete Cube | Cube Workshop',
+        isAuth: res.isAuth
     });
 });
 
@@ -43,14 +47,15 @@ router.get('/delete/:id', (req, res) => {
 /**
  * Details cube by id
  */
-router.get('/details/:id', async (req, res) => {
+router.get('/details/:id', checkAuthentication, async (req, res) => {
     const cube = await databaseController.getModelById(req.params.id, Cube);
     const accessories = await accessoryController.getAccessoriesFromCube(cube.accessories);
 
     res.render('details', {
         title: 'Details | Cube Workshop',
         cube: cube,
-        accessories: accessories
+        accessories: accessories,
+        isAuth: res.isAuth
     });
 });
 

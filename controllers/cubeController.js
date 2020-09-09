@@ -13,7 +13,7 @@ async function createCube(req,res) {
 
     const token = req.cookies['aid'];
 
-    const creator= jwt.verify(token,process.env.privateKey);
+    const creator= jwt.verify(token,process.env.PRIVATE_KEY);
     const cube = new Cube({name, description, imageUrl, difficulty,creatorId: creator.userId});
     await databaseController.addModel(cube);
 }
