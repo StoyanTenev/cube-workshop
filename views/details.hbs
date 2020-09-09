@@ -7,6 +7,8 @@
     <p><span>Difficulty level:</span>{{cube.difficulty}}</p>
     <a class="btn" href="/">Back</a>
     {{#if isAuth}}
+        <a class="btn" href="/edit/{{cube.id}}">Edit</a>
+        <a class="btn" href="/delete/{{cube.id}}">Delete</a>
         <a class="btn" href="/attach/accessory/{{cube.id}}">Attach Accessory</a>
     {{/if}}
 
