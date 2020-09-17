@@ -33,7 +33,7 @@ router.get('/edit/:id', checkAuthentication, async (req, res) => {
     });
 });
 
-router.post('/edit/:id', checkAuthentication, async (req, res) => {
+router.patch('/edit/:id', checkAuthentication, async (req, res) => {
     await cubeController.editCube(req.body, req.params.id, Cube);
     res.redirect('/');
 })
@@ -50,7 +50,7 @@ router.get('/delete/:id', checkAuthentication, async (req, res) => {
     });
 });
 
-router.post('/delete/:id', checkAuthentication, async (req, res) => {
+router.delete('/delete/:id', checkAuthentication, async (req, res) => {
     await cubeController.deleteCube(req.params.id);
     res.redirect('/');
 })
